@@ -40,3 +40,16 @@ class test2 {
 
 test1().change()
 test2().get()
+
+
+var str = "123天"
+var test = str.removeLast()
+print(str)
+
+enum Color: CaseIterable {
+    case red, green, blue
+}
+
+for color in Color.allCases {
+    print("My favorite color is \(color).")
+}
