@@ -53,3 +53,14 @@ enum Color: CaseIterable {
 for color in Color.allCases {
     print("My favorite color is \(color).")
 }
+
+
+var calendar = Calendar.current.startOfDay(for: Date())
+
+var now = Date()
+var future = now
+print(future)
+future += 1 * 60 * 60 * 24
+let dateInterval = DateInterval(start: now, end: future)
+print(future)
+print(calendar)
