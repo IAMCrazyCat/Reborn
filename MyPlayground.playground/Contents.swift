@@ -55,12 +55,26 @@ for color in Color.allCases {
 }
 
 
-var calendar = Calendar.current.startOfDay(for: Date())
+//var calendar = Calendar.current.startOfDay(for: Date())
 
 var now = Date()
 var future = now
 print(future)
-future += 1 * 60 * 60 * 24
+future += 1 * 60 * 60 * 48
 let dateInterval = DateInterval(start: now, end: future)
-print(future)
-print(calendar)
+print(dateInterval)
+let diffInDays = Calendar.current.dateComponents([.day], from: now, to: future).date
+
+let calendar = Calendar.current
+
+// Replace the hour (time) of both dates with 00:00
+
+let formatter = DateFormatter()
+formatter.dateFormat = "yyyy/MM/dd"
+let someDateTime = formatter.date(from: "2016/10/08")
+let endDateTime = formatter.date(from: "2020/10/08")
+
+let date1 = calendar.startOfDay(for: someDateTime!)
+let date2 = calendar.startOfDay(for: endDateTime!)
+
+let components = calendar.dateComponents([.calendar], from: date1, to: date2)
