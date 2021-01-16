@@ -65,16 +65,34 @@ let dateInterval = DateInterval(start: now, end: future)
 print(dateInterval)
 let diffInDays = Calendar.current.dateComponents([.day], from: now, to: future).date
 
-let calendar = Calendar.current
 
 // Replace the hour (time) of both dates with 00:00
 
 let formatter = DateFormatter()
 formatter.dateFormat = "yyyy/MM/dd"
-let someDateTime = formatter.date(from: "2016/10/08")
-let endDateTime = formatter.date(from: "2020/10/08")
+let someDateTime = formatter.date(from: "2002/5/6")
+let endDateTime = formatter.date(from: "2025/12/31")
 
-let date1 = calendar.startOfDay(for: someDateTime!)
-let date2 = calendar.startOfDay(for: endDateTime!)
 
-let components = calendar.dateComponents([.calendar], from: date1, to: date2)
+
+
+
+let startYear = 2012
+let endYear = 2025
+
+
+let calendar = Calendar.current
+for year in startYear ... endYear {
+    
+    for month in 1 ... 12 {
+        let dateComponents = DateComponents(year: year, month: month)
+        let date = calendar.date(from: dateComponents)!
+        let range = calendar.range(of: .day, in: .month, for: date)!
+        let numDays = range.count
+        print("\(year)年 \(month)月 有 \(numDays)")
+    }
+
+
+}
+
+
