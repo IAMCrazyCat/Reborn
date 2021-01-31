@@ -1,6 +1,6 @@
-//import UIKit
-//
-//
+import UIKit
+import Foundation
+
 //class Singleton {
 //
 //    static let shared = Singleton()
@@ -94,23 +94,36 @@
 //
 //}
 
-var number1 = [Int]()
-var number2 = [Int]()
+let dateFormatterGet = DateFormatter()
+dateFormatterGet.dateFormat = "yyyy年 M月"
+var date = Date()
 
-var time = 0
+print(dateFormatterGet.string(from: date))
+date -= 3000000
+print(dateFormatterGet.string(from: date))
 
-for _ in 1 ... 7 {
-    number1.append(Int.random(in: 1 ... 2))
+
+var currentYear: Int = 2021
+var currentMonth: Int = 1
+var monthDifference: Int = -1
+
+var result = currentMonth + monthDifference
+
+while result < 0 {
+    result = 12 + result
 }
 
-while number1 != number2 {
-    for _ in 1 ... 7 {
-        number2.append(Int.random(in: 1 ... 2))
-        
-    }
-    time += 1
+print(result)
+
+
+
+
+var result = currentMonth + monthDifference
+var count = 1
+while result < 0 {
+    result = 12 + result
+    count += 1
+}
+
+print(currentYear - count)
   
-}
-print(time)
-
-
