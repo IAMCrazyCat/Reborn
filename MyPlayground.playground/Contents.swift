@@ -94,36 +94,9 @@ import Foundation
 //
 //}
 
-let dateFormatterGet = DateFormatter()
-dateFormatterGet.dateFormat = "yyyy年 M月"
-var date = Date()
+let formatter = DateFormatter()
+formatter.dateFormat = "yyyy-MM"
 
-print(dateFormatterGet.string(from: date))
-date -= 3000000
-print(dateFormatterGet.string(from: date))
+let interval = Date() - updatedDate
 
 
-var currentYear: Int = 2021
-var currentMonth: Int = 1
-var monthDifference: Int = -1
-
-var result = currentMonth + monthDifference
-
-while result < 0 {
-    result = 12 + result
-}
-
-print(result)
-
-
-
-
-var result = currentMonth + monthDifference
-var count = 1
-while result < 0 {
-    result = 12 + result
-    count += 1
-}
-
-print(currentYear - count)
-  
