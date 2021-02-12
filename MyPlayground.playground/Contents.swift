@@ -97,6 +97,15 @@ import Foundation
 let formatter = DateFormatter()
 formatter.dateFormat = "yyyy-MM"
 
-let interval = Date() - updatedDate
 
 
+let calendar = Calendar.current
+let time = calendar.dateComponents([.hour,.minute,.second], from: Date())
+let morning = ["8:00:00", "12:00:00"]
+
+var testTime = DateComponents()
+testTime.hour = 8
+testTime.minute = 0
+testTime.second = 0
+
+print(time.hour! > testTime.hour!)
