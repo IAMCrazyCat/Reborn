@@ -99,13 +99,33 @@ formatter.dateFormat = "yyyy-MM"
 
 
 
+//let calendar = Calendar.current
+//let time = calendar.dateComponents([.hour,.minute,.second], from: Date())
+//let morning = ["8:00:00", "12:00:00"]
+//
+//var testTime = DateComponents()
+//testTime.hour = 8
+//testTime.minute = 0
+//testTime.second = 0
+
+//print(time.hour! > testTime.hour!)
+
+
+//let date = Date()
+//
+//// Define which date components that we want to be considered
+//// when looking for tomorrow’s date. This essentially decides
+//// what level of precision that we’d like:
+
+//)
+//
+//let tomorrow = calendar.nextDate(
+//    after: date,
+//    matching: components,
+//    matchingPolicy: .nextTime
+//)
+
 let calendar = Calendar.current
-let time = calendar.dateComponents([.hour,.minute,.second], from: Date())
-let morning = ["8:00:00", "12:00:00"]
-
-var testTime = DateComponents()
-testTime.hour = 8
-testTime.minute = 0
-testTime.second = 0
-
-print(time.hour! > testTime.hour!)
+let date = calendar.date(byAdding: .day, value: 20, to: Date())
+let components = calendar.dateComponents([.year, .month, .day, .hour], from: date!)
+print(components.day)
