@@ -125,11 +125,28 @@ formatter.dateFormat = "yyyy-MM"
 //    matchingPolicy: .nextTime
 //)
 
-let calendar = Calendar.current
-let date = calendar.date(byAdding: .day, value: 20, to: Date())
-let components = calendar.dateComponents([.year, .month, .day, .hour], from: date!)
-print(components.day)
+//let calendar = Calendar.current
+//let date = calendar.date(byAdding: .day, value: 20, to: Date())
+//let components = calendar.dateComponents([.year, .month, .day, .hour], from: date!)
+//print(components.day)
+//
+//1 % 12
+//Radiance
+//print(GLKMathDegreesToRadians(360))
 
-1 % 12
-Radiance
-print(GLKMathDegreesToRadians(360))
+//let date = Date()
+//let calendar = NSCalendar.current
+//let components = calendar.dateComponents([.nanosecond], from: date)
+//let nanoSeconds = components.nanosecond
+
+//let d1 = Date()
+//let df = DateFormatter()
+//df.dateFormat = "y-MM-dd H:m:ss.SSSS"
+//let d2 = df.date(from: "2021-05-03 9:30:00.1234")!
+//
+//print(df.string(from: d1))
+//print(df.string(from: d2))
+//let components = Calendar.current.dateComponents([.second, .nanosecond], from: d1, to: d2)
+//let totolNanoSeconds = components.second! * 1000000 + components.nanosecond!
+//print(totolNanoSeconds)
+print(Int(1199/600))
