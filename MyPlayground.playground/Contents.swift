@@ -94,9 +94,9 @@ import Foundation
 //
 //}
 
-let formatter = DateFormatter()
-formatter.dateFormat = "yyyy-MM"
-
+//let formatter = DateFormatter()
+//formatter.dateFormat = "yyyy-MM"
+//
 
 
 //let calendar = Calendar.current
@@ -149,4 +149,126 @@ formatter.dateFormat = "yyyy-MM"
 //let components = Calendar.current.dateComponents([.second, .nanosecond], from: d1, to: d2)
 //let totolNanoSeconds = components.second! * 1000000 + components.nanosecond!
 //print(totolNanoSeconds)
-print(Int(1199/600))
+//print(Int(1199/600))
+
+extension Array {
+
+    var random: Element? {
+        let randomIndex = Int.random(in: 0 ... self.count - 1)
+        return self[randomIndex]
+    }
+}
+
+class State {
+    var ID: Int
+    var nextStates: Array<State>
+    
+    init(ID: Int, nextStates: Array<State>) {
+        self.ID = ID
+        self.nextStates = nextStates
+    }
+}
+
+class Transition: Equatable {
+    static func == (lhs: Transition, rhs: Transition) -> Bool {
+        lhs.fromState.ID == rhs.fromState.ID && lhs.toState.ID == rhs.toState.ID
+    }
+    
+    var fromState: State
+    var toState: State
+   
+    var numberOfExcutedTimes: Int = 0
+    var possibility: Double = 0
+    var toString: String {
+        return "S\(fromState.ID)->\(toState.ID)"
+    }
+    
+    init(from: State, to: State) {
+        self.fromState = from
+        self.toState = to
+    }
+}
+
+class StateMachine {
+    
+    
+    var currentState: State
+    var transitions: Array<Transition> = []
+    var S1 = State(ID: 1, nextStates: [])
+    var S2 = State(ID: 2, nextStates: [])
+    var S3 = State(ID: 3, nextStates: [])
+    var S4 = State(ID: 4, nextStates: [])
+    
+    init() {
+        S1.nextStates.append(S2)
+        S2.nextStates.append(S3)
+        S2.nextStates.append(S1)
+        S3.nextStates.append(S2)
+        S3.nextStates.append(S4)
+        S3.nextStates.append(S1)
+        S4.nextStates.append(S3)
+        S4.nextStates.append(S1)
+        
+        currentState = S1
+        excuteWalkthrough()
+    }
+    
+    func excuteWalkthrough() {
+        for i in 1 ... 1000 {
+            
+            walkthroughRandomly()
+            print(i)
+        }
+        calculateTransitionPossibility()
+    }
+    
+    func walkthroughRandomly() {
+        var path: Array<State> = []
+        var startedRunning: Bool = false
+        while currentState.ID != 1 || startedRunning == false {
+            let fromState: State = currentState
+            let toState: State
+            !startedRunning ? startedRunning = true : ()
+            path.append(currentState)
+            currentState = currentState.nextStates.random!
+            toState = currentState
+            transitions.append(Transition(from: fromState, to: toState))
+        }
+        var pathStr = ""
+        for state in path {
+            pathStr += "S\(state.ID)->"
+        }
+        pathStr += "S\(currentState.ID)"
+        print(pathStr)
+    }
+    
+    func calculateTransitionPossibility() {
+        
+        var uniqueTansitions: Array<Transition> = []
+        uniqueTansitions.append(transitions.first!)
+        for transition in transitions {
+           
+            var transitionAlreadyExist = false
+            for uniqueTransition in uniqueTansitions {
+                print("\(transition.toString) \(uniqueTransition.toString) \(transition == uniqueTransition)")
+                if transition == uniqueTransition{
+                    uniqueTransition.numberOfExcutedTimes += 1
+                    transitionAlreadyExist = true
+                }
+            }
+            
+            transitionAlreadyExist ? () : uniqueTansitions.append(transition)
+            
+        }
+        
+        for uniqueTransition in uniqueTansitions {
+            uniqueTransition.possibility = Double(uniqueTransition.numberOfExcutedTimes) / Double(1000)
+            print("S\(uniqueTransition.fromState.ID)->S\(uniqueTransition.toState.ID) Possibility: \(uniqueTransition.possibility)")
+        }
+        
+    }
+    
+    
+}
+
+StateMachine()
