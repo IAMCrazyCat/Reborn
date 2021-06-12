@@ -274,15 +274,30 @@
 //StateMachine()
 
 import Foundation
-let formatter = DateFormatter()
-formatter.dateFormat = "yyyy MM dd"
+//let formatter = DateFormatter()
+//formatter.dateFormat = "yyyy MM dd"
+//
+//let date = formatter.date(from: "\(2021) \(6) \(5)")
+//var weekday = Calendar.current.component(.weekday, from: date!)
+//
+//if weekday <= 1 {
+//    weekday = 7
+//} else {
+//    weekday -= 1
+//}
+//print(weekday)
 
-let date = formatter.date(from: "\(2021) \(6) \(5)")
-var weekday = Calendar.current.component(.weekday, from: date!)
+let originalMonth = 12
+let monthDifference = -13
 
-if weekday <= 1 {
-    weekday = 7
-} else {
-    weekday -= 1
+var newMonth = originalMonth + (monthDifference % 12)
+
+if newMonth > 12 {
+    newMonth = 1
+} else if newMonth == 0 {
+    newMonth = 12
+} else if newMonth < 0 {
+    newMonth = 12 - newMonth
 }
-print(weekday)
+
+print(newMonth)
