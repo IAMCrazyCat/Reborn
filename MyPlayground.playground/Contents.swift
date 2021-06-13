@@ -287,17 +287,33 @@ import Foundation
 //}
 //print(weekday)
 
-let originalMonth = 12
-let monthDifference = -13
+//let originalMonth = 12
+//let monthDifference = -13
+//
+//var newMonth = originalMonth + (monthDifference % 12)
+//
+//if newMonth > 12 {
+//    newMonth = 1
+//} else if newMonth == 0 {
+//    newMonth = 12
+//} else if newMonth < 0 {
+//    newMonth = 12 - newMonth
+//}
+//
+//print(newMonth)
 
-var newMonth = originalMonth + (monthDifference % 12)
+import UIKit
 
-if newMonth > 12 {
-    newMonth = 1
-} else if newMonth == 0 {
-    newMonth = 12
-} else if newMonth < 0 {
-    newMonth = 12 - newMonth
+func heightForView(text: String, font: UIFont, width: CGFloat) -> CGFloat{
+    let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+    label.numberOfLines = 0
+    label.lineBreakMode = NSLineBreakMode.byWordWrapping
+    label.font = font
+    label.text = text
+
+    label.sizeToFit()
+    return label.frame.height
 }
 
-print(newMonth)
+heightForView(text: "WTFWTWFWFWTWGWHWWTFWTWFWFWTWGWHW", font: UIFont.systemFont(ofSize: 12), width: 100)
+heightForView(text: "WTFWTWFWFWTWW", font: UIFont.systemFont(ofSize: 12), width: 100)
