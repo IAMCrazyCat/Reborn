@@ -151,129 +151,182 @@
 ////print(totolNanoSeconds)
 ////print(Int(1199/600))
 //
-//extension Array {
-//
-//    var random: Element? {
-//        let randomIndex = Int.random(in: 0 ... self.count - 1)
-//        return self[randomIndex]
-//    }
-//}
-//
-//class State {
-//    var ID: Int
-//    var nextStates: Array<State>
-//
-//    init(ID: Int, nextStates: Array<State>) {
-//        self.ID = ID
-//        self.nextStates = nextStates
-//    }
-//}
-//
-//class Transition: Equatable {
-//    static func == (lhs: Transition, rhs: Transition) -> Bool {
-//        lhs.fromState.ID == rhs.fromState.ID && lhs.toState.ID == rhs.toState.ID
-//    }
-//
-//    var fromState: State
-//    var toState: State
-//
-//    var numberOfExcutedTimes: Int = 0
-//    var possibility: Double = 0
-//    var toString: String {
-//        return "S\(fromState.ID)->\(toState.ID)"
-//    }
-//
-//    init(from: State, to: State) {
-//        self.fromState = from
-//        self.toState = to
-//    }
-//}
-//
-//class StateMachine {
-//
-//
-//    var currentState: State
-//    var transitions: Array<Transition> = []
-//    var S1 = State(ID: 1, nextStates: [])
-//    var S2 = State(ID: 2, nextStates: [])
-//    var S3 = State(ID: 3, nextStates: [])
-//    var S4 = State(ID: 4, nextStates: [])
-//
-//    init() {
-//        S1.nextStates.append(S2)
-//        S2.nextStates.append(S3)
-//        S2.nextStates.append(S1)
-//        S3.nextStates.append(S2)
-//        S3.nextStates.append(S4)
-//        S3.nextStates.append(S1)
-//        S4.nextStates.append(S3)
-//        S4.nextStates.append(S1)
-//
-//        currentState = S1
-//        excuteWalkthrough()
-//    }
-//
-//    func excuteWalkthrough() {
-//        for i in 1 ... 1000 {
-//
-//            walkthroughRandomly()
-//            print(i)
-//        }
-//        calculateTransitionPossibility()
-//    }
-//
-//    func walkthroughRandomly() {
-//        var path: Array<State> = []
-//        var startedRunning: Bool = false
-//        while currentState.ID != 1 || startedRunning == false {
-//            let fromState: State = currentState
-//            let toState: State
-//            !startedRunning ? startedRunning = true : ()
-//            path.append(currentState)
-//            currentState = currentState.nextStates.random!
-//            toState = currentState
-//            transitions.append(Transition(from: fromState, to: toState))
-//        }
-//        var pathStr = ""
-//        for state in path {
-//            pathStr += "S\(state.ID)->"
-//        }
-//        pathStr += "S\(currentState.ID)"
-//        print(pathStr)
-//    }
-//
-//    func calculateTransitionPossibility() {
-//
-//        var uniqueTansitions: Array<Transition> = []
-//        uniqueTansitions.append(transitions.first!)
-//        for transition in transitions {
-//
-//            var transitionAlreadyExist = false
-//            for uniqueTransition in uniqueTansitions {
-//                print("\(transition.toString) \(uniqueTransition.toString) \(transition == uniqueTransition)")
-//                if transition == uniqueTransition{
-//                    uniqueTransition.numberOfExcutedTimes += 1
-//                    transitionAlreadyExist = true
-//                }
-//            }
-//
-//            transitionAlreadyExist ? () : uniqueTansitions.append(transition)
-//
-//        }
-//
-//        for uniqueTransition in uniqueTansitions {
-//            uniqueTransition.possibility = Double(uniqueTransition.numberOfExcutedTimes) / Double(1000)
-//            print("S\(uniqueTransition.fromState.ID)->S\(uniqueTransition.toState.ID) Possibility: \(uniqueTransition.possibility)")
-//        }
-//
-//    }
-//
-//
-//}
-//
-//StateMachine()
+extension Array {
 
-import Foundation
+    var random: Element? {
+        let randomIndex = Int.random(in: 0 ... self.count - 1)
+        return self[randomIndex]
+    }
+   
+}
+
+class State {
+    var ID: Int
+    var nextStates: Array<State>
+    var description: String?
+    init(ID: Int, nextStates: Array<State>, description: String? = nil) {
+        self.ID = ID
+        self.nextStates = nextStates
+        self.description = description
+    }
+}
+
+class Transition: Equatable {
+    static func == (lhs: Transition, rhs: Transition) -> Bool {
+        lhs.fromState.ID == rhs.fromState.ID && lhs.toState.ID == rhs.toState.ID
+    }
+
+    var fromState: State
+    var toState: State
+
+    var numberOfExcutedTimes: Int = 0
+    var possibility: Double = 0
+    var toString: String {
+        return "S\(fromState.ID)->\(toState.ID)"
+    }
+
+    init(from: State, to: State) {
+        self.fromState = from
+        self.toState = to
+    }
+}
+
+class StateMachine {
+
+    let executionTimes: Int = 1000
+    var currentState: State
+    var transitions: Array<Transition> = []
+    var states: Array<State> = []
+    var S1 = State(ID: 1, nextStates: [], description: "1.0")
+    var S2 = State(ID: 2, nextStates: [], description: "1.1")
+    var S3 = State(ID: 3, nextStates: [], description: "1.1.1")
+    var S4 = State(ID: 4, nextStates: [], description: "1.2.0")
+    var S5 = State(ID: 5, nextStates: [], description: "1.2.1")
+    var S6 = State(ID: 6, nextStates: [], description: "1.3.1")
+    var S7 = State(ID: 7, nextStates: [], description: "1.3.2")
+    var S8 = State(ID: 8, nextStates: [], description: "1.3.3")
+    var S9 = State(ID: 9, nextStates: [], description: "1.4.0")
+    
+    init() {
+//        states.append(S1)
+//        states.append(S2)
+        states.append(S3)
+        states.append(S4)
+        states.append(S5)
+        states.append(S6)
+        states.append(S7)
+        states.append(S8)
+        states.append(S9)
+        
+        
+        for state in states {
+            for nextState in states {
+                if nextState.ID > state.ID {
+                    state.nextStates.append(nextState)
+                }
+            }
+            print(state.ID)
+            print(state.nextStates.description)
+        }
+        S9.nextStates.append(S9)
+        currentState = states.random!
+        excuteWalkthrough()
+    }
+
+    func excuteWalkthrough() {
+        for i in 1 ... executionTimes {
+            currentState = states.random!
+            walkthroughRandomly()
+            print(i)
+        }
+        calculateUniquePaths()
+        //calculateTransitionPossibility()
+    }
+    
+    var paths: Array<String> = []
+    
+    func walkthroughRandomly() {
+        var path: Array<State> = []
+        var startedRunning: Bool = false
+        while currentState.ID != 9 || startedRunning == false {
+            let fromState: State = currentState
+            let toState: State
+            !startedRunning ? startedRunning = true : ()
+            path.append(currentState)
+            currentState = currentState.nextStates.random!
+            toState = currentState
+            transitions.append(Transition(from: fromState, to: toState))
+        }
+        
+        
+        var pathStr = ""
+        for state in path {
+            pathStr += "v\(state.description!)->"//"S\(state.ID)->"
+        }
+        pathStr += "v\(currentState.description!)"//"S\(currentState.ID)"
+        paths.append(pathStr)
+    }
+
+    func calculateTransitionPossibility() {
+
+        var uniqueTansitions: Array<Transition> = []
+        uniqueTansitions.append(transitions.first!)
+        for transition in transitions {
+
+            var transitionAlreadyExist = false
+            for uniqueTransition in uniqueTansitions {
+                print("\(transition.toString) \(uniqueTransition.toString) \(transition == uniqueTransition)")
+                if transition == uniqueTransition{
+                    uniqueTransition.numberOfExcutedTimes += 1
+                    transitionAlreadyExist = true
+                }
+            }
+
+            transitionAlreadyExist ? () : uniqueTansitions.append(transition)
+
+        }
+
+        for uniqueTransition in uniqueTansitions {
+            uniqueTransition.possibility = Double(uniqueTransition.numberOfExcutedTimes) / Double(executionTimes)
+            print("S\(uniqueTransition.fromState.ID)->S\(uniqueTransition.toState.ID) Possibility: \(uniqueTransition.possibility)")
+        }
+
+    }
+    
+    
+    func calculateUniquePaths() {
+        print("总测试路径：\(uniqueElementsFrom(array: self.paths).count)条")
+        var number = 0
+        for uniquePath in uniqueElementsFrom(array: self.paths) {
+            print(uniquePath)
+            number += 1
+        }
+    }
+    
+    
+    func uniqueElementsFrom(array: [String]) -> [String] {
+      //Create an empty Set to track unique items
+      var set = Set<String>()
+      let result = array.filter {
+        guard !set.contains($0) else {
+          //If the set already contains this object, return false
+          //so we skip it
+          return false
+        }
+        //Add this item to the set since it will now be in the array
+        set.insert($0)
+        //Return true so that filtered array will contain this item.
+        return true
+      }
+      return result
+    }
+
+
+}
+
+StateMachine()
+
+//import Foundation
 //let formatter = DateFormatter()
 //formatter.dateFormat = "yyyy MM dd"
 //
@@ -302,18 +355,18 @@ import Foundation
 //
 //print(newMonth)
 
-import UIKit
-
-func heightForView(text: String, font: UIFont, width: CGFloat) -> CGFloat{
-    let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
-    label.numberOfLines = 0
-    label.lineBreakMode = NSLineBreakMode.byWordWrapping
-    label.font = font
-    label.text = text
-
-    label.sizeToFit()
-    return label.frame.height
-}
-
-heightForView(text: "WTFWTWFWFWTWGWHWWTFWTWFWFWTWGWHW", font: UIFont.systemFont(ofSize: 12), width: 100)
-heightForView(text: "WTFWTWFWFWTWW", font: UIFont.systemFont(ofSize: 12), width: 100)
+//import UIKit
+//
+//func heightForView(text: String, font: UIFont, width: CGFloat) -> CGFloat{
+//    let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+//    label.numberOfLines = 0
+//    label.lineBreakMode = NSLineBreakMode.byWordWrapping
+//    label.font = font
+//    label.text = text
+//
+//    label.sizeToFit()
+//    return label.frame.height
+//}
+//
+//heightForView(text: "WTFWTWFWFWTWGWHWWTFWTWFWFWTWGWHW", font: UIFont.systemFont(ofSize: 12), width: 100)
+//heightForView(text: "WTFWTWFWFWTWW", font: UIFont.systemFont(ofSize: 12), width: 100)
